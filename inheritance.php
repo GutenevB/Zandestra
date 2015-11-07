@@ -4,13 +4,14 @@
  * User: pc
  * Date: 07.11.15
  * Time: 20:21
- */header("Content-type:text/html; charset=utf-8");
+ */
+header("Content-type:text/html; charset=utf-8");
 class ShopProduct
 {
     private $title;
     private $producerMainName;
     private $producerFirstName;
-    private $price;
+    protected $price;
     private $discount = 0;
 
     public function __construct($title,$firstName,$mainName,$price){
@@ -47,7 +48,7 @@ class ShopProduct
 
     public function getPrice()
     {
-        return $this->price;
+        return $this->price - $this->discount;
     }
 
     public function getProducer()
@@ -91,15 +92,15 @@ class BookProduct extends ShopProduct
 {
     private $numPage = 0;
 
-    public function __construct($title,$firstName,$mainName,$price,$numPage)
+    public function __construct($title, $firstName, $mainName, $price, $numPage)
     {
-        parent::__construct($title,$firstName,$mainName,$price);
+        parent::__construct($title, $firstName, $mainName, $price);
         $this->numPage = $numPage;
     }
 
     public function getNumberOfPages()
     {
-       return $this->numPage;
+        return $this->numPage;
     }
 
     public function getSummaryLine()
@@ -108,7 +109,13 @@ class BookProduct extends ShopProduct
         $res .= " Страниц в книге - {$this->numPage}";
         return $res;
     }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
 }
+
 
 
 // $test = new ShopProduct('PHP','Zandrsta','Mett',500);
